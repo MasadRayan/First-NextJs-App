@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const NavBar = () => {
@@ -5,9 +6,15 @@ const NavBar = () => {
         <div>
             <nav className='flex justify-center'>
                 <ul className='flex items-center justify-between w-1/2'>
-                    <li className='hover:text-amber-500 cursor-pointer'>Home</li>
-                    <li className='hover:text-amber-500 cursor-pointer'>About</li>
-                    <li className='hover:text-amber-500 cursor-pointer'>Services</li>
+                    <Link href={'/'}>
+                        <li className='hover:text-amber-500 cursor-pointer'>Home</li>
+                    </Link>
+                    <Link href={'/about'}>
+                        <li className='hover:text-amber-500 cursor-pointer'>About</li>
+                    </Link>
+                    <Link href={'/services'}>
+                        <li className='hover:text-amber-500 cursor-pointer'>Services</li>
+                    </Link>
                 </ul>
             </nav>
         </div>
