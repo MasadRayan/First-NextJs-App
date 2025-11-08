@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 export const getPost = async () => {
@@ -16,7 +17,8 @@ const Posts = async () => {
                         <div key={singlePost.id}>
                             <h1 className='text-2xl font-bold text-red-500'>
                                Title: {singlePost.title}</h1>
-                            <p>{singlePost.body}</p>
+                            <p className='mb-5'>{singlePost.body}</p>
+                            <Link href={`/posts/${singlePost.id}`}  className='px-6 py-3  bg-cyan-600 text-white rounded-3xl'>Read more</Link>
                         </div>
                     )
                 })
