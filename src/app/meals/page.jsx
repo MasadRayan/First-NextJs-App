@@ -1,3 +1,4 @@
+import Link from "next/link";
 import MealSearchInput from "./components/MealSearchInput";
 
 
@@ -32,6 +33,9 @@ const MealPage = async ({searchParams}) => {
                     <div key={meal.idMeal}>
                         <img className='mb-2' src={meal.strMealThumb} alt={meal.strMeal} />
                         <h2><span className='text-xl font-bold '>Dish Name:</span>  {meal.strMeal}</h2>
+                        <Link href={`/meals/${meal.idMeal}`}>
+                            <button className="mt-4 px-6 py-3 btn bg-orange-400">Details</button>
+                        </Link>
                     </div>
                 ))}
             </div>
