@@ -1,5 +1,11 @@
 import MealSearchInput from "./components/MealSearchInput";
 
+
+export const metadata = {
+  title: 'All Meals',
+  description: "Loaded for all meals",
+};
+
 const MealPage = async ({searchParams}) => {
     
     const query = await searchParams;
