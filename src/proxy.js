@@ -8,7 +8,7 @@ export function proxy(request) {
         email: 'test@admin.com',
     }
 
-    let isServices = request.nextUrl.pathname.startsWith('/services');
+    let isServices = request.nextUrl.pathname.startsWith('/hi');
     let isAdmin = userInfo.role == 'admin';
 
     if (isServices && !isAdmin) {

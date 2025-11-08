@@ -19,13 +19,17 @@ const NavBar = () => {
                         <Link href={'/services'}>
                             <li className='hover:text-amber-500 cursor-pointer'>Services</li>
                         </Link>
+                        <Link href={'/posts'}>
+                            <li className='hover:text-amber-500 cursor-pointer'>
+                                Posts
+                            </li>
+                        </Link>
                     </ul>
                 </nav>
             </div>
         );
     }
-    else
-    {
+    else {
         return <></>
     }
 
