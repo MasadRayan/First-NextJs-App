@@ -24,6 +24,11 @@ const NavBar = () => {
                                 Posts
                             </li>
                         </Link>
+                        <Link href={'/meals'}>
+                            <li className='hover:text-amber-500 cursor-pointer'>
+                                Meals
+                            </li>
+                        </Link>
                     </ul>
                 </nav>
             </div>
