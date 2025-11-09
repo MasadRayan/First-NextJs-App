@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 
@@ -49,16 +50,21 @@ const SingleMealPage = async ({ params }) => {
                         alt={singleMeal.strMeal}
                         className="rounded-2xl w-full object-cover"
                     />
-                    {singleMeal.strYoutube && (
-                        <a
-                            href={singleMeal.strYoutube}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block mt-4 text-center text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition-all duration-300"
-                        >
-                            🎬 Watch Recipe Video
-                        </a>
-                    )}
+                    <div className='flex justify-center items-center gap-5'>
+                        <div>
+                            {singleMeal.strYoutube && (
+                                <a
+                                    href={singleMeal.strYoutube}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block mt-4 text-center text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition-all duration-300"
+                                >
+                                    🎬 Watch Recipe Video
+                                </a>
+                            )}
+                        </div>
+
+                    </div>
                 </div>
 
                 {/* Ingredients Section */}
@@ -78,6 +84,13 @@ const SingleMealPage = async ({ params }) => {
                         )}
                         {/* Add more ingredients as needed */}
                     </ul>
+                    <div className='mt-5 '>
+                        <Link href={'/meals'}>
+                            <button className='btn bg-amber-500 text-xl'>
+                                Back
+                            </button>
+                        </Link>
+                    </div>
                 </div>
 
             </div>

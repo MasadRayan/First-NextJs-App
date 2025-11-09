@@ -2,8 +2,8 @@
 
 export default function Home() {
   return (
-    <div>
-      <h1>Hellow world</h1>
+    <div className="min-h-[715px]">
+      <h1 className="text-5xl font-bold">Hello world</h1>
     </div>
   );
 }
