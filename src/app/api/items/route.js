@@ -1,0 +1,13 @@
+import { dbConnect } from "../../../lib/dbConnect";
+
+export async function GET() {
+    const data = await dbConnect('users').find().toArray();
+
+    return Response.json({ data })
+}
+
+export async function POST(req) {
+    const postData = await req.json();
+    const result = await dbConnect('users').insertOne(postData);
+    return Response.json(result)
+}
