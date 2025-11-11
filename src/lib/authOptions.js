@@ -1,8 +1,9 @@
 import { dbConnect } from "./dbConnect";
 import CredentialsProvider from "next-auth/providers/credentials"
-
+import { collectionNames } from "./dbConnect";
 
 export const authOptions = {
+    
     providers: [
         CredentialsProvider({
             // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -14,7 +15,7 @@ export const authOptions = {
             },
             async authorize(credentials, req) {
                 const { username, email, password } = credentials;
-                const result = await dbConnect("test_user").findOne({ name: username, email: email, password: password });
+                const result = await dbConnect(collectionNames.TEST_USER).findOne({ name: username, email: email, password: password });
 
                 const isPasswordValid = result.password === password;
                 // If no error and we have user data, return it

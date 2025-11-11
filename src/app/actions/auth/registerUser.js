@@ -5,7 +5,7 @@ import { dbConnect } from "@/lib/dbConnect";
 const registerUser = async (playload) => {
 
     try {
-        const result = await dbConnect("test_user").insertOne(playload);
+        const result = await dbConnect().insertOne(playload);
         return {
             acknowledgement: result.acknowledged,
             insertedID: result.insertedId.toString()
