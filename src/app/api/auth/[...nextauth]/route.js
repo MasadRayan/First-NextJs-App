@@ -2,7 +2,7 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 
-const handler = NextAuth({
+export const authOptions = {
     providers: [
         CredentialsProvider({
             // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -28,7 +28,7 @@ const handler = NextAuth({
 
 
                 // If no error and we have user data, return it
-                if ( user) {
+                if (user) {
                     return user
                 }
                 // Return null if user data could not be retrieved
@@ -36,6 +36,8 @@ const handler = NextAuth({
             }
         })
     ]
-})
+}
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
