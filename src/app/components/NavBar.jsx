@@ -30,6 +30,11 @@ const NavBar = () => {
                                 Meals
                             </li>
                         </Link>
+                        <Link href={'/register'}>
+                            <li className='hover:text-amber-500 cursor-pointer'>
+                                Register
+                            </li>
+                        </Link>
                     </ul>
                 </nav>
             </div>
