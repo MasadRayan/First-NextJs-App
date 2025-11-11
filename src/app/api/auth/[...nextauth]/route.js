@@ -1,3 +1,4 @@
+import { dbConnect } from "@/lib/dbConnect"
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
@@ -13,29 +14,35 @@ export const authOptions = {
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials, req) {
-                // const res = await fetch("/your/endpoint", {
-                //     method: 'POST',
-                //     body: JSON.stringify(credentials),
-                //     headers: { "Content-Type": "application/json" }
-                // })
-                // const user = await res.json();
-                console.log(credentials);
-                const user = {
-                    id: "123",
-                    name: "John Doe",
-                    email: "jhon@example.com"
-                };
+                const { username, email, password } = credentials;
+                const result = await dbConnect("test_user").findOne({ name: username, email: email, password: password });
 
-
+                const isPasswordValid = result.password === password;
                 // If no error and we have user data, return it
-                if (user) {
-                    return user
+                if (isPasswordValid && result) {
+                    return result
                 }
                 // Return null if user data could not be retrieved
-                return null
+                return <div>Not giving correct data</div>
             }
         })
-    ]
+    ],
+    callbacks: {
+        async session({ session, token, user }) {
+            if (token) {
+                session.user.name = token.name;
+                session.user.role = token.role
+            }
+            return session
+        },
+        async jwt({ token, user, account, profile, isNewUser }) {
+            if (user) {
+                token.name =  user.name;
+                token.role = user.role;
+            }
+            return token
+        }
+    }
 }
 
 const handler = NextAuth(authOptions)

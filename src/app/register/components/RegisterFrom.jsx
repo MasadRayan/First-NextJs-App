@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import registerUser from '@/app/actions/auth/registerUser';
 
 
 const formSchema = z.object({
@@ -35,8 +36,9 @@ export default function RegisterForm() {
     });
 
     // ✅ 3. Handle submit
-    function onSubmit(values) {
-        console.log(values);
+    async function onSubmit(values) {
+        const result = await registerUser(values)
+        console.log(result);
     }
 
     // ✅ 4. UI Layout with shadcn Form components
