@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import LoginButton from "./components/LoginButton";
 import UserInfo from "./components/UserInfo";
 import { authOptions } from "@/lib/authOptions";
+import LogOutButton from "@/components/LogOutButton";
 
 
 export default async function Home() {
@@ -10,13 +11,25 @@ export default async function Home() {
     <div className="min-h-[715px]">
       <h1 className="text-5xl font-bold">Hello world</h1>
       <div>
-        <LoginButton></LoginButton>
+        {
+          session?.user ? (
+            <LogOutButton></LogOutButton>
+          ) : (
+            <LoginButton></LoginButton>
+          )
+        }
       </div>
-      <div >
-        <p className="text-3xl font-bold">From Client Side</p>
-        <UserInfo></UserInfo>
-        <p className="text-3xl font-bold">From the server</p>
-        {JSON.stringify(session)}
+      <div>
+        {
+          session?.user && (
+            <div >
+              <p className="text-3xl font-bold">From Client Side</p>
+              <UserInfo></UserInfo>
+              <p className="text-3xl font-bold">From the server</p>
+              {JSON.stringify(session)}
+            </div>
+          )
+        }
       </div>
     </div>
   );
