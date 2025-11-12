@@ -1,12 +1,13 @@
 import { dbConnect } from "./dbConnect";
 import CredentialsProvider from "next-auth/providers/credentials"
 import { collectionNames } from "./dbConnect";
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 
 export const authOptions = {
-    
+
     providers: [
         CredentialsProvider({
-            // The name to display on the sign in form (e.g. 'Sign in with...')
             name: 'Credentials',
             credentials: {
                 username: { label: "Username", type: "text", placeholder: "jhon" },
@@ -25,9 +26,45 @@ export const authOptions = {
                 // Return null if user data could not be retrieved
                 return <div>Not giving correct data</div>
             }
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET
+        }),
+        GitHubProvider({
+            clientId: process.env.GITHUB_ID,
+            clientSecret: process.env.GITHUB_SECRET
         })
     ],
     callbacks: {
+        async signIn({ user, account, profile, email, credentials }) {
+            if (account) {
+                try {
+                    const { provider, providerAccountId, } = account;
+                    const { name, email: user_email, image } = user
+                    const payload = {
+                        role: 'user',
+                        providerAccountId, 
+                        provider,
+                        name, 
+                        user_email, 
+                        image
+                    }
+                    const userCollection =  dbConnect(collectionNames.TEST_USER)
+                    const isUserExist = await userCollection.findOne({ email: user_email });
+                    if (!isUserExist) {
+                        await userCollection.insertOne(payload);
+                    }
+                } catch (error) {
+                    console.log(error);
+                    return false;
+                }
+
+
+            }
+
+            return true
+        },
         async session({ session, token, user }) {
             if (token) {
                 session.user.name = token.name;
@@ -42,5 +79,6 @@ export const authOptions = {
             }
             return token
         }
-    }
+    },
+
 }
